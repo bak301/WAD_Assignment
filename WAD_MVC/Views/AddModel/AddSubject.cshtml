@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "AddSubject";
+}
+
+<h2>New Subject </h2>
+@model WAD_MVC.localhost.subject
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        Môn Thi : 
+        @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        Thời lượng :
+        @Html.TextBoxFor(m => m.duration, new { type = "number", @class = "form-control", max = 200 })
+    </div>
+
+    <input class="active" type="submit" name="name"/>
+}

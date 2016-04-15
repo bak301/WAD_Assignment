@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Gate";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm()) {
+    <div>
+        Username : 
+        @Html.Editor("username")
+    </div>
+
+    <div>
+        Password :
+        @Html.Password("pass")
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" name="G" value="Login" />
+    </div>
+}

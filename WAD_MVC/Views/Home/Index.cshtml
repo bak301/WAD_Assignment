@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model WAD_MVC.Models.IndexModel
+
+<h2>Danh sách kỳ thi</h2>
+@using (Html.BeginForm()) {
+    <div class="form-group">
+        Nhập mã số kỳ thi :
+        @Html.TextBox("exam_id", new { }, new { type = "number", @class = "form-control", required = "required" })
+    </div>
+
+    <input type="submit" name="bzz" value="Delete" />
+}
+@{ 
+    var grid = new WebGrid(Model.exam);
+}
+@(
+                    grid.GetHtml(
+                        tableStyle : "table table-hover table-responsive",
+                        columns: grid.Columns(
+                            grid.Column("id", "Mã kỳ thi"),
+                            grid.Column("exam_time","Trạng thái",(e) => {
+                                WAD_MVC.localhost.subject[] subjectList = Model.subject;
+                                double minutes = (double)(from s in subjectList where s.name.Equals(e.subject_name) select s.duration).Single();
+                                DateTime timeOut = e.exam_time;
+                                timeOut = timeOut.AddMinutes(minutes);
+
+                                int isOver = DateTime.Compare(DateTime.Now, timeOut);
+                                int inProgress = DateTime.Compare(e.exam_time, DateTime.Now);
+
+                                if (isOver > 0) {
+                                    System.Diagnostics.Debug.WriteLine("Time out : " + timeOut);
+                                    return "Đã thi";
+                                } else {
+                                    if (inProgress < 0) {
+                                        return "Đang thi";
+                                    } else {
+                                        return "Chưa thi";
+                                    }
+                                }
+                            }),
+                            grid.Column("subject_name", "Môn thi"),
+                            grid.Column("exam_time", "Thời gian thi"),
+                            grid.Column("watcher", "Giáo viên")
+            ))
+)

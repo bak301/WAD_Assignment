@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "AddSubject";
+}
+
+<h2>New Exam </h2>
+@model WAD_MVC.localhost.exam
+
+@using (Html.BeginForm())
+
+{
+    <div class="form-group">
+        Mã số :
+        @Html.TextBoxFor(m => m.id, new { type = "number", @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @{ 
+            var datasource = WAD_MVC.Controllers.HomeController.client.GetSubject().Select(e => e.name);
+            var list = new SelectList(datasource);
+        }
+        Môn Thi : 
+        @Html.DropDownListFor(m => m.subject_name, list,new { @class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        Thời gian : 
+        @Html.TextBoxFor(m => m.exam_time, new { type = "datetime-local", @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        Giáo viên : 
+        @Html.TextBoxFor(m => m.watcher, new { @class = "form-control" })
+    </div>
+
+    <input class="active" type="submit" name="name"/>
+}

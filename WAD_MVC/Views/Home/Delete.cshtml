@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+@model WAD_MVC.localhost.exam
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        Bạn có chắc muốn xóa kỳ thi này ? 
+        @Html.DisplayFor(model => model.id) | @Html.DisplayFor(model => model.subject_name)
+         | @Html.DisplayFor(model => model.exam_time) | @Html.DisplayFor(model => model.watcher)
+    </div>
+
+    <input class="btn-danger" type="Submit" name="del" value="Delete" />
+    @Html.ActionLink("Abort", "Index", "Home", new { area = "" }, new { @class = "btn-primary" })
+}
