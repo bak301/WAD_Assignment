@@ -3,9 +3,10 @@
 }
 
 <h2>Index</h2>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <div>
-        Username : 
+        Username :
         @Html.Editor("username")
     </div>
 
@@ -14,6 +15,6 @@
         @Html.Password("pass")
     </div>
     <div>
-        <input class="btn btn-primary" type="submit" name="G" value="Login" />
+        <input class="btn btn-primary" type="submit" name="G" value="Login"/>
     </div>
 }

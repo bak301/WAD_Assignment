@@ -1,48 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in code, svc and config file together.
-public class Service : IService {
-    private testdbEntities ms_db;
+public class Service : IService
+{
+    private readonly testdbEntities _msDb;
 
-    public Service() {
-
-        ms_db = new testdbEntities();
-        ms_db.Configuration.ProxyCreationEnabled = false;
+    public Service()
+    {
+        _msDb = new testdbEntities();
+        _msDb.Configuration.ProxyCreationEnabled = false;
     }
 
     // ------------ Service Contract -----------------
-    public bool Login(string u, string p) {
-        var auth_db = new authenticationEntities();
-        return auth_db.accounts.Any(account => account.id.Equals(u) && account.pw.Equals(p));
+    public bool Login(string u, string p)
+    {
+        var authDb = new authenticationEntities();
+        return authDb.accounts.Any(account => account.id.Equals(u) && account.pw.Equals(p));
     }
 
-    public List<exam> GetAllExam() {
-        return ms_db.exams.ToList();
+    public List<exam> GetAllExam()
+    {
+        return _msDb.exams.ToList();
     }
 
-    public bool AddExam(exam exam) {
-        ms_db.exams.Add(exam);
-        return ms_db.SaveChanges() > 0;
+    public bool AddExam(exam exam)
+    {
+        _msDb.exams.Add(exam);
+        return _msDb.SaveChanges() > 0;
     }
 
-    public bool DeleteExam(exam exam) {
-        ms_db.exams.Attach(exam);
-        ms_db.exams.Remove(exam);
-        return ms_db.SaveChanges() > 0;
+    public bool DeleteExam(exam exam)
+    {
+        _msDb.exams.Attach(exam);
+        _msDb.exams.Remove(exam);
+        return _msDb.SaveChanges() > 0;
     }
 
-    public bool AddSubject(subject subject) {
-        ms_db.subjects.Add(subject);
-        return ms_db.SaveChanges() > 0;
+    public bool AddSubject(subject subject)
+    {
+        _msDb.subjects.Add(subject);
+        return _msDb.SaveChanges() > 0;
     }
 
-    public List<subject> GetSubject() {
-        return ms_db.subjects.ToList();
+    public List<subject> GetSubject()
+    {
+        return _msDb.subjects.ToList();
     }
 }

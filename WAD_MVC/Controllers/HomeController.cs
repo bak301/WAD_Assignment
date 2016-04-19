@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using WAD_MVC.localhost;
+using WAD_MVC.Models;
 
 namespace WAD_MVC.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        public static localhost.Service client = new localhost.Service();
+        public static Service Client = new Service();
         // GET: Home
 
         private ActionResult GetTable()
         {
-            var data = client.GetAllExam();
-            var subjList = client.GetSubject();
+            var data = Client.GetAllExam();
+            var subjList = Client.GetSubject();
 
-            return View("Index", new Models.IndexModel
+            return View("Index", new IndexModel
             {
-                exam = data,
-                subject = subjList
+                Exam = data,
+                Subject = subjList
             });
         }
 
@@ -31,12 +31,15 @@ namespace WAD_MVC.Controllers
 
         // ----------- POST -------------
         [HttpPost]
-        public ActionResult Index(int exam_id)
+        public ActionResult Index(int examId)
         {
-            localhost.exam exam;
-            try {
-                exam = client.GetAllExam().Single(e => e.id.Equals(exam_id));
-            } catch (InvalidOperationException) {
+            exam exam;
+            try
+            {
+                exam = Client.GetAllExam().Single(e => e.id.Equals(examId));
+            }
+            catch (InvalidOperationException)
+            {
                 return GetTable();
             }
             TempData["exam"] = exam;
@@ -45,16 +48,16 @@ namespace WAD_MVC.Controllers
 
         public ActionResult Add()
         {
-            string type = Request.Params["type"];
+            var type = Request.Params["type"];
             if (type.Equals("exam"))
             {
                 return RedirectToAction("AddExam", "AddModel");
             }
-            else if (type.Equals("subject"))
+            if (type.Equals("subject"))
             {
                 return RedirectToAction("AddSubject", "AddModel");
             }
-            return View();
+            return View("Index");
         }
 
 
@@ -62,14 +65,15 @@ namespace WAD_MVC.Controllers
 
         public ActionResult Delete()
         {
-            var model = TempData["exam"] as localhost.exam;
+            var model = TempData["exam"] as exam;
             TempData["delete"] = model;
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Delete(localhost.exam exam) {
-            HomeController.client.DeleteExam(TempData["delete"] as localhost.exam);
+        public ActionResult Delete(exam exam)
+        {
+            Client.DeleteExam(TempData["delete"] as exam);
             return RedirectToAction("Index");
         }
     }

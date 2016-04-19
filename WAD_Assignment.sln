@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WAD_WCF", "WAD_WCF\", "{8835BCE5-2AA9-4583-8D21-A885DCC5B9CE}"
 	ProjectSection(WebsiteProperties) = preProject

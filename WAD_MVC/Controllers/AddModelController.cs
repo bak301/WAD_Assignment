@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using WAD_MVC.localhost;
 
 namespace WAD_MVC.Controllers
 {
@@ -22,16 +19,16 @@ namespace WAD_MVC.Controllers
 
         // POST
         [HttpPost]
-        public ActionResult AddExam(localhost.exam exam)
+        public ActionResult AddExam(exam exam)
         {
-            WAD_MVC.Controllers.HomeController.client.AddExam(exam);
+            HomeController.Client.AddExam(exam);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public ActionResult AddSubject(localhost.subject subject)
+        public ActionResult AddSubject(subject subject)
         {
-            HomeController.client.AddSubject(subject);
+            HomeController.Client.AddSubject(subject);
             return RedirectToAction("Index", "Home");
         }
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
+﻿using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -13,14 +9,11 @@ namespace WAD_MVC.Controllers
         // GET: Auth
         public ActionResult LogIn(string username, string pass)
         {
-            bool isValid = HomeController.client.Login(username, pass);
-            if (isValid)
-            {
-                FormsAuthentication.SetAuthCookie(username, false);
-                Debug.WriteLine("YAY !");
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
+            var isValid = HomeController.Client.Login(username, pass);
+            if (!isValid) return View();
+            FormsAuthentication.SetAuthCookie(username, false);
+            Debug.WriteLine("YAY !");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOut()

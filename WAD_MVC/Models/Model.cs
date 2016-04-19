@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using WAD_MVC.localhost;
 
 namespace WAD_MVC.Models
 {
     public class IndexModel
     {
-        public localhost.exam[] exam { get; set; }
-        public localhost.subject[] subject { get; set; }
+        public exam[] Exam { get; set; }
+        public subject[] Subject { get; set; }
     }
 }
